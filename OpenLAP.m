@@ -48,8 +48,8 @@ tic
 
 %% Filenames
 
-trackfile = 'OpenTRACK Tracks/OpenTRACK_Spa-Francorchamps_Closed_Forward.mat' ;
-vehiclefile = 'OpenVEHICLE Vehicles/OpenVEHICLE_Formula 1_Open Wheel.mat' ;
+trackfile = 'OpenTRACK Tracks/OpenTRACK_Autodromo Nazionale Monza_Closed_Forward.mat' ;
+vehiclefile = 'OpenVEHICLE Vehicles/OpenVEHICLE_MR-22_Open Wheel.mat' ;
 
 %% Loading circuit
 
@@ -478,11 +478,16 @@ function [sim] = simulate(veh,tr,simname,logid)
     yaw_rate = V.*tr.r ;
     delta = zeros(tr.n,1) ;
     beta = zeros(tr.n,1) ;
+    CF = veh.CF ;
+    CR = veh.CR ;
+    a = (1-veh.df)*veh.L ;
+    b = -veh.df*veh.L ;
+    C = 2*[CF,CF+CR;CF*a,CF*a+CR*b] ;
     for i=1:tr.n
         B = [M*V(i)^2*tr.r(i)+M*g*sind(tr.bank(i));0] ;
-        sol = veh.C\B ;
+        sol = C\B ;
         delta(i) = sol(1)+atand(veh.L*tr.r(i)) ;
-        beta(i) = sol(2) ;
+        beta(i)= sol(2) ;
     end
     steer = delta*veh.rack ;
     % HUD
