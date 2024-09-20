@@ -58,7 +58,7 @@ fclose('all') ;
 
 %% Track excel file selection
 
-filename = 'ASE.xlsx' ;
+filename = 'data/Donington Park.xlsx' ;
 
 %% Mode
 

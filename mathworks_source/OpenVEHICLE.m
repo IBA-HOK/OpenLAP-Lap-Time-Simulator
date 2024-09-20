@@ -39,7 +39,7 @@ fclose('all') ;
 
 %% Vehicle file selection
 
-filename = 'MR-23_test.xlsx' ;
+filename = 'data/Formula 1.xlsx' ;
 
 %% Reading vehicle file
 
